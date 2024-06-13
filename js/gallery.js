@@ -72,16 +72,17 @@ console.log(list);
 function createMarkup(arr) {
   return arr
     .map(
-      ({ preview, original, description }) => `<li class="gallery-item">
-  <a class="gallery-link" href="${original}">
-    <img
-      class="gallery-image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-    />
-  </a>
-</li>`
+      ({ preview, original, description }) =>
+        `<li class="gallery-item">
+          <a class="gallery-link" href="${original}">
+            <img
+            class="gallery-image"
+            src="${preview}"
+            data-original="${original}"
+            alt="${description}"
+            />
+          </a>
+        </li>`
     )
     .join('');
 }
@@ -99,21 +100,26 @@ list.addEventListener('click', handlerGetProduckt);
 // Другий if, виводить у консоль посилання на велике зображення через data-атрибут.
 function handlerGetProduckt(event) {
   event.preventDefault();
-
+  const currentSrc = event.target.dataset.original;
+  // const currentProduckt = images.find(
+  //   ({ original }) => original === currentSrc
+  // );
+  // console.log(currentProduckt);
   if (event.currentTarget === event.target) {
     return;
   }
-  if (event.target.tagName === 'IMG') {
-    const largeImageSrc = event.target.dataset.source;
-    console.log(largeImageSrc);
-  }
-  console.log(event.target);
+  // if (event.target.tagName === 'IMG') {
+  //   console.log(currentSrc);
+  // }
+  // console.log(event.target);
 
   const instance = basicLightbox.create(
     `
-    <div><img src="${largeImageSrc}" alt="${original}" /></div>
+    <div class=""><img src="${currentSrc}" alt="" /></div>
     `
   );
+
+  instance.show();
 }
 
 // console.log(basicLightbox);
