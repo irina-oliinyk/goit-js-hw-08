@@ -77,7 +77,7 @@ function createMarkup(arr) {
     <img
       class="gallery-image"
       src="${preview}"
-      data-source="large-image.jpg"
+      data-source="${original}"
       alt="${description}"
     />
   </a>
@@ -90,8 +90,29 @@ function createMarkup(arr) {
 list.insertAdjacentHTML('afterbegin', createMarkup(images));
 
 // Подія на клік
-list.addEventListener('click', event => {
+list.addEventListener('click', handlerGetProduckt);
+
+function handlerGetProduckt(event) {
   event.preventDefault();
-  console.log('event.target: ', event.target);
-  console.log('event.currentTarget: ', event.currentTarget);
-});
+
+  if (event.currentTarget === event.target) {
+    return;
+  }
+  if (event.target.tagName === 'IMG') {
+    const largeImageSrc = event.target.dataset.source;
+    console.log(largeImageSrc);
+  }
+  console.log(event.target);
+}
+
+console.log(basicLightbox);
+
+const instance = basicLightbox.create(
+  `
+    <h1>Not closable</h1>
+    <p>It's not possible to close this lightbox with a click.</p>
+`,
+  {
+    closable: false,
+  }
+);
