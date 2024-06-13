@@ -92,6 +92,11 @@ list.insertAdjacentHTML('afterbegin', createMarkup(images));
 // Подія на клік
 list.addEventListener('click', handlerGetProduckt);
 
+// Фунція для події кліку
+// Перший if, перевіряє щоб елемент по якому ми тицяємо не співпадав з елементом на якому стоїть
+// прослуховувач події.Для того, щоб при кліку на ul, нічого не ставалося.
+
+// Другий if, виводить у консоль посилання на велике зображення через data-атрибут.
 function handlerGetProduckt(event) {
   event.preventDefault();
 
@@ -103,16 +108,12 @@ function handlerGetProduckt(event) {
     console.log(largeImageSrc);
   }
   console.log(event.target);
+
+  const instance = basicLightbox.create(
+    `
+    <div><img src="${largeImageSrc}" alt="${original}" /></div>
+    `
+  );
 }
 
-console.log(basicLightbox);
-
-const instance = basicLightbox.create(
-  `
-    <h1>Not closable</h1>
-    <p>It's not possible to close this lightbox with a click.</p>
-`,
-  {
-    closable: false,
-  }
-);
+// console.log(basicLightbox);
